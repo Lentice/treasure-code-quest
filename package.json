@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "rimraf dist && vite build",
     "preview": "vite preview --strictPort --port 5173",
-    "deploy:imp": "npm run build && npx gh-pages -d dist -b gh-pages && git checkout main",
+    "deploy:imp": "npm run build && npx gh-pages -d dist -r https://github.com/Lentice/treasure-code-quest.git -b gh-pages && git checkout main",
     "deploy": "npm run deploy:imp || git checkout main"
   },
   "dependencies": {
