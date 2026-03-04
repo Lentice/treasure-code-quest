@@ -1,4 +1,4 @@
-# 寶藏解鎖（Kid Treasure）
+# 寶藏解鎖（Treasure Code Quest）
 
 給小朋友用的「輸入密碼一起解鎖寶箱」小網頁（手機/iPad 觸控友善）。
 

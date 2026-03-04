@@ -5,7 +5,7 @@ import react from '@vitejs/plugin-react'
 // Set BASE_URL in env to override; defaults to '/'
 export default defineConfig({
   plugins: [react()],
-  base: process.env.BASE_URL || '/kid_treasure/',
+  base: process.env.BASE_URL || '/treasure-code-quest/',
   server: {
     port: 5173,
     strictPort: true
