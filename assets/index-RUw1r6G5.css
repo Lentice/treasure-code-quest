@@ -1,0 +1,405 @@
+:root {
+  --text: #0b1020;
+  --card: rgba(255, 255, 255, 0.78);
+  --card-strong: rgba(255, 255, 255, 0.92);
+  --border: rgba(255, 255, 255, 0.32);
+  --border-strong: rgba(11, 16, 32, 0.18);
+  --accent: #6b5cff;
+  --accent2: #ff5cd1;
+  --good: #27c36a;
+  --bad: #ff4d6d;
+
+  font-family: ui-rounded, system-ui, -apple-system, Segoe UI, Roboto, Arial,
+    sans-serif;
+  font-size: 16px;
+  line-height: 1.4;
+  font-weight: 700;
+
+  color: var(--text);
+  color-scheme: light;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background: radial-gradient(1200px 700px at 15% 0%, #ffdef5 0%, transparent 55%),
+    radial-gradient(900px 600px at 90% 10%, #d9f3ff 0%, transparent 55%),
+    radial-gradient(900px 700px at 60% 95%, #e6ffdf 0%, transparent 55%),
+    linear-gradient(180deg, #0a0f2a 0%, #120a2a 55%, #0a0f2a 100%);
+  background-attachment: fixed;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.42;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.9) 1px, transparent 1px);
+  background-size: 28px 28px;
+  background-position: 0 0;
+  mix-blend-mode: screen;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+textarea {
+  font-family: inherit;
+  font-weight: 800;
+}
+.chestWrap {
+  position: relative;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 12px;
+  backdrop-filter: blur(8px);
+}
+
+.chestWrapEmbedded {
+  background: transparent;
+  border: none;
+  padding: 0;
+  backdrop-filter: none;
+}
+
+.chestGlow::before {
+  content: '';
+  position: absolute;
+  inset: -12px;
+  border-radius: 26px;
+  background: radial-gradient(
+    380px 240px at 50% 35%,
+    rgba(255, 255, 255, 0.85) 0%,
+    rgba(107, 92, 255, 0.35) 30%,
+    rgba(255, 92, 209, 0.25) 55%,
+    transparent 70%
+  );
+  filter: blur(8px);
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+.chestSvg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.chestCaption {
+  margin-top: 8px;
+  text-align: center;
+  font-size: 14px;
+  opacity: 0.78;
+}
+
+.flipCard {
+  position: relative;
+  display: block;
+  padding: 0;
+  cursor: pointer;
+  text-align: initial;
+  font: inherit;
+  color: inherit;
+  background: none;
+  -webkit-tap-highlight-color: transparent;
+
+  perspective: 1000px;
+}
+
+.flipCardDisabled {
+  cursor: default;
+}
+
+.flipCardInner {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  transition: transform 520ms ease;
+}
+
+.flipCardFlipped .flipCardInner {
+  transform: rotateY(180deg);
+}
+
+.flipCardFace {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  backface-visibility: hidden;
+}
+
+.flipCardBack {
+  transform: rotateY(180deg);
+}
+.hintBox {
+  background: rgba(255, 255, 255, 0.92);
+  border: 2px dashed rgba(255, 77, 109, 0.55);
+  border-radius: 18px;
+  padding: 12px;
+}
+
+.hintTitle {
+  font-size: 16px;
+  margin-bottom: 8px;
+  color: var(--bad);
+}
+
+.hintText {
+  font-size: 18px;
+}
+
+.hintImage {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 14px;
+  border: 1px solid rgba(11, 16, 32, 0.18);
+}
+.rewardCard {
+  width: min(420px, 92vw);
+  aspect-ratio: 2 / 3;
+  margin: 0 auto;
+  border-radius: 22px;
+  border: 3px solid rgba(255, 255, 255, 0.75);
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.95) 0%,
+    rgba(255, 255, 255, 0.78) 40%,
+    rgba(255, 255, 255, 0.92) 100%
+  );
+  position: relative;
+  overflow: hidden;
+}
+
+.rewardCard::after {
+  content: '';
+  position: absolute;
+  inset: 10px;
+  border-radius: 16px;
+  border: 2px solid rgba(11, 16, 32, 0.18);
+  pointer-events: none;
+}
+
+.rewardInner {
+  height: 100%;
+  padding: 16px;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: 12px;
+}
+
+.rewardTitle {
+  text-align: center;
+  font-size: 22px;
+  letter-spacing: 1px;
+}
+
+.rewardArtWrap {
+  border-radius: 16px;
+  border: 1px solid rgba(11, 16, 32, 0.18);
+  background: rgba(255, 255, 255, 0.8);
+  overflow: hidden;
+  display: grid;
+}
+
+.rewardArt {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.rewardArtContain {
+  object-fit: contain;
+}
+.appShell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.topBar {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 14px 12px;
+  margin: 10px auto 0;
+  width: min(980px, calc(100% - 16px));
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  backdrop-filter: blur(8px);
+}
+
+.brandTitle {
+  font-size: 20px;
+  letter-spacing: 1px;
+}
+
+.brandSubtitle {
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+.nav {
+  display: flex;
+  gap: 10px;
+}
+
+.navLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 86px;
+  height: 44px;
+  padding: 0 14px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: var(--card-strong);
+}
+
+.navLinkActive {
+  outline: 3px solid rgba(107, 92, 255, 0.35);
+}
+
+.main {
+  width: min(980px, calc(100% - 16px));
+  margin: 10px auto 22px;
+}
+
+.panel {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 14px;
+  backdrop-filter: blur(8px);
+}
+
+.panelTitle {
+  margin: 0 0 10px;
+  font-size: 18px;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
+.fieldLabel {
+  font-size: 14px;
+  opacity: 0.85;
+}
+
+.input {
+  height: 44px;
+  border-radius: 14px;
+  border: 1px solid var(--border-strong);
+  background: rgba(255, 255, 255, 0.92);
+  padding: 0 12px;
+  font-size: 18px;
+  width: 100%;
+}
+
+.textarea {
+  min-height: 96px;
+  border-radius: 14px;
+  border: 1px solid var(--border-strong);
+  background: rgba(255, 255, 255, 0.92);
+  padding: 10px 12px;
+  font-size: 16px;
+  width: 100%;
+}
+
+.btn {
+  height: 48px;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  background: var(--card-strong);
+  padding: 0 16px;
+  font-size: 18px;
+}
+
+.btnPrimary {
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
+  color: white;
+  border: none;
+}
+
+.btnDanger {
+  background: linear-gradient(135deg, var(--bad) 0%, var(--accent2) 100%);
+  color: white;
+  border: none;
+}
+
+.btnGood {
+  background: linear-gradient(135deg, #1fcf6a 0%, #25b8ff 100%);
+  color: white;
+  border: none;
+}
+
+.btn:disabled {
+  opacity: 0.45;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  padding: 0 12px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--card-strong);
+}
+
+.grid2 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+
+.adminTopRow {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.adminTopRowInner {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+@media (min-width: 780px) {
+  .grid2 {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .adminTopRowInner {
+    width: calc((100% - 10px) / 2);
+  }
+}
