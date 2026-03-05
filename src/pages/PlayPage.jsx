@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import Chest from '../components/Chest.jsx'
 import FlipCard from '../components/FlipCard.jsx'
 import HintBox from '../components/HintBox.jsx'
@@ -12,7 +12,13 @@ export default function PlayPage() {
   const [showWrongHint, setShowWrongHint] = useState(false)
   const [usedMessage, setUsedMessage] = useState('')
   const [isRevealed, setIsRevealed] = useState(false)
+  const [isFinalTransitioning, setIsFinalTransitioning] = useState(false)
   const inputRef = useRef(null)
+  const finalTimerRef = useRef(null)
+
+  const CHEST_PROGRESS_ANIMATION_MS = 1500
+  const CHEST_PROGRESS_ANIMATION_REDUCED_MS = 1500
+  const FINAL_SWITCH_BUFFER_MS = 60
 
   const unlockedChestSrc = `${import.meta.env.BASE_URL}unlocked-chest.png`
 
@@ -24,6 +30,41 @@ export default function PlayPage() {
   const progress = state.childCount > 0 ? unlockedCount / state.childCount : 0
   const allUnlocked = unlockedCount === state.childCount && state.childCount > 0
   const progressPercent = state.childCount > 0 ? Math.round(progress * 100) : 0
+
+  const showFinalCard = allUnlocked && !isFinalTransitioning
+
+  function getFinalTransitionMs() {
+    if (typeof window === 'undefined') return 520
+
+    try {
+      const reduced = window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches
+      const base = reduced ? CHEST_PROGRESS_ANIMATION_REDUCED_MS : CHEST_PROGRESS_ANIMATION_MS
+      return base + FINAL_SWITCH_BUFFER_MS
+    } catch {
+      return CHEST_PROGRESS_ANIMATION_MS + FINAL_SWITCH_BUFFER_MS
+    }
+  }
+
+  useEffect(() => {
+    return () => {
+      if (finalTimerRef.current) {
+        clearTimeout(finalTimerRef.current)
+        finalTimerRef.current = null
+      }
+    }
+  }, [])
+
+  useEffect(() => {
+    if (!allUnlocked) {
+      setIsFinalTransitioning(false)
+      setIsRevealed(false)
+
+      if (finalTimerRef.current) {
+        clearTimeout(finalTimerRef.current)
+        finalTimerRef.current = null
+      }
+    }
+  }, [allUnlocked])
 
   function update(next) {
     saveState(next)
@@ -53,6 +94,20 @@ export default function PlayPage() {
 
       const next = { ...state, unlocked }
       update(next)
+
+      if (willAllUnlocked) {
+        setIsFinalTransitioning(true)
+        const delay = getFinalTransitionMs()
+
+        if (finalTimerRef.current) {
+          clearTimeout(finalTimerRef.current)
+        }
+
+        finalTimerRef.current = setTimeout(() => {
+          finalTimerRef.current = null
+          setIsFinalTransitioning(false)
+        }, delay)
+      }
 
       fireConfetti({ kind: willAllUnlocked ? 'fireworks' : 'confetti' })
       clearInput()
@@ -149,7 +204,8 @@ export default function PlayPage() {
       ) : null}
 
       {allUnlocked ? (
-        <FlipCard
+        showFinalCard ? (
+          <FlipCard
           className="rewardCard"
           isFlipped={isRevealed}
           disabled={isRevealed}
@@ -182,6 +238,9 @@ export default function PlayPage() {
             )
           }
         />
+        ) : (
+          <Chest progress={1} glow />
+        )
       ) : (
         <Chest progress={progress} glow={false} />
       )}
