@@ -15090,78 +15090,13 @@ function AdminPage() {
 }
 function Chest({ progress, glow, embedded = false, caption }) {
   const safe = Math.min(1, Math.max(0, Number(progress) || 0));
-  const clipId = reactExports.useId();
   const wrapClass = `chestWrap${glow ? " chestGlow" : ""}${embedded ? " chestWrapEmbedded" : ""}`;
-  return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: wrapClass, children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
-    "svg",
-    {
-      className: "chestSvg",
-      viewBox: "0 0 320 220",
-      role: "img",
-      "aria-label": "寶箱進度",
-      children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("defs", { children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("clipPath", { id: clipId, children: /* @__PURE__ */ jsxRuntimeExports.jsx("rect", { x: "0", y: "0", width: 320 * safe, height: "220" }) }),
-          /* @__PURE__ */ jsxRuntimeExports.jsxs("linearGradient", { id: "metal", x1: "0", x2: "1", children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx("stop", { offset: "0", stopColor: "#f0f3ff" }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx("stop", { offset: "1", stopColor: "#a7b2ff" })
-          ] }),
-          /* @__PURE__ */ jsxRuntimeExports.jsxs("linearGradient", { id: "wood", x1: "0", x2: "1", children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx("stop", { offset: "0", stopColor: "#ffcd6b" }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx("stop", { offset: "1", stopColor: "#ff5cd1" })
-          ] }),
-          /* @__PURE__ */ jsxRuntimeExports.jsxs("linearGradient", { id: "wood2", x1: "0", x2: "1", children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx("stop", { offset: "0", stopColor: "#6b5cff" }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx("stop", { offset: "1", stopColor: "#27c36a" })
-          ] })
-        ] }),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("g", { opacity: "0.92", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("rect", { x: "38", y: "74", width: "244", height: "118", rx: "18", fill: "#c8c8c8" }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("rect", { x: "38", y: "74", width: "244", height: "118", rx: "18", fill: "#6b6b6b", opacity: "0.25" }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("rect", { x: "52", y: "90", width: "216", height: "86", rx: "14", fill: "#7b7b7b", opacity: "0.2" }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx(
-            "path",
-            {
-              d: "M52 78c0-26 34-46 108-46s108 20 108 46v16H52V78z",
-              fill: "#8a8a8a",
-              opacity: "0.8"
-            }
-          ),
-          /* @__PURE__ */ jsxRuntimeExports.jsx(
-            "path",
-            {
-              d: "M68 78c0-16 28-30 92-30s92 14 92 30v10H68V78z",
-              fill: "#6d6d6d",
-              opacity: "0.45"
-            }
-          ),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("rect", { x: "150", y: "94", width: "20", height: "72", rx: "8", fill: "#bdbdbd" }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("rect", { x: "144", y: "118", width: "32", height: "30", rx: "8", fill: "#8a8a8a", opacity: "0.6" })
-        ] }),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("g", { clipPath: `url(#${clipId})`, children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("rect", { x: "38", y: "74", width: "244", height: "118", rx: "18", fill: "url(#wood2)" }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("rect", { x: "52", y: "90", width: "216", height: "86", rx: "14", fill: "url(#wood)", opacity: "0.85" }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx(
-            "path",
-            {
-              d: "M52 78c0-26 34-46 108-46s108 20 108 46v16H52V78z",
-              fill: "url(#wood2)"
-            }
-          ),
-          /* @__PURE__ */ jsxRuntimeExports.jsx(
-            "path",
-            {
-              d: "M68 78c0-16 28-30 92-30s92 14 92 30v10H68V78z",
-              fill: "#ffd166",
-              opacity: "0.9"
-            }
-          ),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("rect", { x: "150", y: "94", width: "20", height: "72", rx: "8", fill: "url(#metal)" }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("rect", { x: "144", y: "118", width: "32", height: "30", rx: "8", fill: "#ffffff", opacity: "0.55" })
-        ] })
-      ]
-    }
-  ) });
+  const percent = `${(safe * 100).toFixed(2)}%`;
+  const imgSrc = `${"/treasure-code-quest/"}process-chest.png`;
+  return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: wrapClass, children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "chestProgress", role: "img", "aria-label": "寶箱進度", style: { "--percent": percent }, children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx("img", { className: "chestImg chestImgGray", src: imgSrc, alt: "", "aria-hidden": "true", draggable: "false" }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx("img", { className: "chestImg chestImgColor", src: imgSrc, alt: "", "aria-hidden": "true", draggable: "false" })
+  ] }) });
 }
 function FlipCard({
   isFlipped,
@@ -16055,7 +15990,12 @@ function PlayPage() {
   const [showWrongHint, setShowWrongHint] = reactExports.useState(false);
   const [usedMessage, setUsedMessage] = reactExports.useState("");
   const [isRevealed, setIsRevealed] = reactExports.useState(false);
+  const [isFinalTransitioning, setIsFinalTransitioning] = reactExports.useState(false);
   const inputRef = reactExports.useRef(null);
+  const finalTimerRef = reactExports.useRef(null);
+  const CHEST_PROGRESS_ANIMATION_MS = 1500;
+  const CHEST_PROGRESS_ANIMATION_REDUCED_MS = 1500;
+  const FINAL_SWITCH_BUFFER_MS = 60;
   const unlockedChestSrc = `${"/treasure-code-quest/"}unlocked-chest.png`;
   const unlockedCount = reactExports.useMemo(
     () => state.unlocked.filter(Boolean).length,
@@ -16064,6 +16004,35 @@ function PlayPage() {
   const progress = state.childCount > 0 ? unlockedCount / state.childCount : 0;
   const allUnlocked = unlockedCount === state.childCount && state.childCount > 0;
   const progressPercent = state.childCount > 0 ? Math.round(progress * 100) : 0;
+  const showFinalCard = allUnlocked && !isFinalTransitioning;
+  function getFinalTransitionMs() {
+    if (typeof window === "undefined") return 520;
+    try {
+      const reduced = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
+      const base = reduced ? CHEST_PROGRESS_ANIMATION_REDUCED_MS : CHEST_PROGRESS_ANIMATION_MS;
+      return base + FINAL_SWITCH_BUFFER_MS;
+    } catch {
+      return CHEST_PROGRESS_ANIMATION_MS + FINAL_SWITCH_BUFFER_MS;
+    }
+  }
+  reactExports.useEffect(() => {
+    return () => {
+      if (finalTimerRef.current) {
+        clearTimeout(finalTimerRef.current);
+        finalTimerRef.current = null;
+      }
+    };
+  }, []);
+  reactExports.useEffect(() => {
+    if (!allUnlocked) {
+      setIsFinalTransitioning(false);
+      setIsRevealed(false);
+      if (finalTimerRef.current) {
+        clearTimeout(finalTimerRef.current);
+        finalTimerRef.current = null;
+      }
+    }
+  }, [allUnlocked]);
   function update(next) {
     saveState(next);
     setState(next);
@@ -16086,6 +16055,17 @@ function PlayPage() {
       const willAllUnlocked = unlocked.every(Boolean) && unlocked.length > 0;
       const next = { ...state, unlocked };
       update(next);
+      if (willAllUnlocked) {
+        setIsFinalTransitioning(true);
+        const delay = getFinalTransitionMs();
+        if (finalTimerRef.current) {
+          clearTimeout(finalTimerRef.current);
+        }
+        finalTimerRef.current = setTimeout(() => {
+          finalTimerRef.current = null;
+          setIsFinalTransitioning(false);
+        }, delay);
+      }
       fireConfetti({ kind: willAllUnlocked ? "fireworks" : "confetti" });
       clearInput();
       return;
@@ -16172,7 +16152,7 @@ function PlayPage() {
         "%)"
       ] }) })
     ] }) : null,
-    allUnlocked ? /* @__PURE__ */ jsxRuntimeExports.jsx(
+    allUnlocked ? showFinalCard ? /* @__PURE__ */ jsxRuntimeExports.jsx(
       FlipCard,
       {
         className: "rewardCard",
@@ -16199,7 +16179,7 @@ function PlayPage() {
           )
         ] })
       }
-    ) : /* @__PURE__ */ jsxRuntimeExports.jsx(Chest, { progress, glow: false })
+    ) : /* @__PURE__ */ jsxRuntimeExports.jsx(Chest, { progress: 1, glow: true }) : /* @__PURE__ */ jsxRuntimeExports.jsx(Chest, { progress, glow: false })
   ] });
 }
 function App() {

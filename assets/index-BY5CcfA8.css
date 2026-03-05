@@ -106,6 +106,36 @@ textarea {
   display: block;
 }
 
+.chestProgress {
+  display: grid;
+  --chestProgressDuration: 1500ms;
+}
+
+.chestImg {
+  grid-area: 1 / 1;
+  width: 100%;
+  height: auto;
+  display: block;
+  user-select: none;
+}
+
+.chestImgGray {
+  filter: grayscale(1) brightness(0.86) contrast(0.92);
+  opacity: 0.95;
+}
+
+.chestImgColor {
+  clip-path: inset(0 calc(100% - var(--percent, 0%)) 0 0);
+  transition: clip-path var(--chestProgressDuration) ease;
+  will-change: clip-path;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chestImgColor {
+    transition-duration: 1500ms;
+  }
+}
+
 .chestCaption {
   margin-top: 8px;
   text-align: center;
